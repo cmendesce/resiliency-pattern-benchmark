@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
     config.vm.define "master" do |master|
       master.vm.box = "ubuntu/focal64"
       master.vm.hostname = "master"
-      master.vm.network "private_network", ip: "10.0.0.10"
+      master.vm.network "private_network", ip: "192.168.56.0"
       master.vm.provider "virtualbox" do |vb|
           vb.memory = 16384
           vb.cpus = 8
@@ -28,8 +28,8 @@ Vagrant.configure("2") do |config|
         systemctl enable docker
         systemctl daemon-reload
         systemctl restart docker
-
-        curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        
+        curl -SL "https://github.com/docker/compose/releases/download/v2.24.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         chmod +x /usr/local/bin/docker-compose
 
         usermod -aG docker $USER
